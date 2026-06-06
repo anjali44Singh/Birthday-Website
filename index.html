@@ -941,35 +941,41 @@
             document.getElementById('reviewerText').value = "";
         }
 
-        function generateBirthdayLink() {
-            const name = encodeURIComponent(document.getElementById('makerName').value.trim());
-            const pass = encodeURIComponent(document.getElementById('makerPass').value.trim());
-            const wish = encodeURIComponent(document.getElementById('makerWish').value.trim());
-            
-            let selectedSong = document.getElementById('makerSongSelect').value;
-            if (selectedSong === "custom") {
-                selectedSong = document.getElementById('makerCustomSongUrl').value.trim();
-            }
-            const song = encodeURIComponent(selectedSong);
+       function generateBirthdayLink() {
+    // 1. Get the values from the form
+    const name = encodeURIComponent(document.getElementById('makerName').value.trim());
+    const pass = encodeURIComponent(document.getElementById('makerPass').value.trim());
+    const wish = encodeURIComponent(document.getElementById('makerWish').value.trim());
+    
+    let selectedSong = document.getElementById('makerSongSelect').value;
+    if (selectedSong === "custom") {
+        selectedSong = document.getElementById('makerCustomSongUrl').value.trim();
+    }
+    const song = encodeURIComponent(selectedSong);
 
-            const i1 = encodeURIComponent(document.getElementById('makerImg1').value.trim());
-            const c1 = encodeURIComponent(document.getElementById('makerCap1').value.trim());
-            const i2 = encodeURIComponent(document.getElementById('makerImg2').value.trim());
-            const c2 = encodeURIComponent(document.getElementById('makerCap2').value.trim());
+    const i1 = encodeURIComponent(document.getElementById('makerImg1').value.trim());
+    const c1 = encodeURIComponent(document.getElementById('makerCap1').value.trim());
+    const i2 = encodeURIComponent(document.getElementById('makerImg2').value.trim());
+    const c2 = encodeURIComponent(document.getElementById('makerCap2').value.trim());
 
-            const baseUrl = window.location.origin + window.location.pathname;
-            let fullLink = `${baseUrl}?n=${name}&p=${pass}&m=${wish}&s=${song}&t=bluepink`;
-            
-            if(i1) fullLink += `&i1=${i1}`;
-            if(c1) fullLink += `&c1=${c1}`;
-            if(i2) fullLink += `&i2=${i2}`;
-            if(c2) fullLink += `&c2=${c2}`;
+    // 2. HARDCODE your live GitHub Pages URL here
+    const baseUrl = "https://anjali44singh.github.io/Birthday-Website/";
+    
+    // 3. Construct the full link with all parameters
+    let fullLink = `${baseUrl}?n=${name}&p=${pass}&m=${wish}&s=${song}&t=bluepink`;
+    
+    if(i1) fullLink += `&i1=${i1}`;
+    if(c1) fullLink += `&c1=${c1}`;
+    if(i2) fullLink += `&i2=${i2}`;
+    if(c2) fullLink += `&c2=${c2}`;
 
-            const resultBox = document.getElementById('linkResultBox');
-            const targetSpan = document.getElementById('outputLinkLocation');
-            targetSpan.innerText = fullLink;
-            resultBox.classList.remove('hidden');
-        }
+    // 4. Display the result as a clickable link
+    const resultBox = document.getElementById('linkResultBox');
+    const targetSpan = document.getElementById('outputLinkLocation');
+    
+    targetSpan.innerHTML = `<a href="${fullLink}" target="_blank">${fullLink}</a>`;
+    resultBox.classList.remove('hidden');
+}
 
         function toggleCustomSongInput() {
             const selection = document.getElementById('makerSongSelect').value;
